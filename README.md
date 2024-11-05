@@ -12,6 +12,8 @@ Install the package:
 
 ```bash
 npm install @koiztech/next-yandex-metrika
+# or
+pnpm add @koiztech/next-yandex-metrika
 ```
 
 Add the Yandex Metrika ID to your environment variables:
@@ -44,11 +46,11 @@ export default function RootLayout({ children }) {
 
 The YandexMetrika component accepts the following props:
 
-- clickmap (optional): Enable click map collection (default: true)
-- trackLinks (optional): Enable external link tracking (default: true)
-- accurateTrackBounce (optional): Enable accurate bounce rate tracking (default: true)
-- webvisor (optional): Enable session recording (default: false)
-- strategy (optional): Script loading strategy ('lazyOnload' | 'afterInteractive' | 'beforeInteractive', default: 'afterInteractive'). [Reference](https://nextjs.org/docs/app/api-reference/components/script#strategy).
+- `clickmap` (optional): Enable click map collection (default: true)
+- `trackLinks` (optional): Enable external link tracking (default: true)
+- `accurateTrackBounce` (optional): Enable accurate bounce rate tracking (default: true)
+- `webvisor` (optional): Enable session recording (default: false)
+- `strategy` (optional): Script loading strategy ('lazyOnload' | 'afterInteractive' | 'beforeInteractive', default: 'afterInteractive'). [Reference](https://nextjs.org/docs/app/api-reference/components/script#strategy).
 
 e.g.:
 
@@ -61,8 +63,6 @@ e.g.:
 The Yandex Metrika Tag by itself fails to track page views accurately in Next.js.
 
 For this reason, there's an additional hook that you can use to track page views: `usePageViews`.
-
-For automatic page view tracking in your Next.js application, use the usePageViews hook.
 
 You could add it to your `app/layout.tsx` directly or – if your app is SSR – to a client layout, e.g.:
 
@@ -118,8 +118,8 @@ export default function App() {
 
 The usePageViews hook accepts an options object with the following properties:
 
-- ignoreHashChange (optional): Disable tracking of hash changes (default: false)
-- disabled (optional): Disable page view tracking (default: false)
+- `ignoreHashChange` (optional): Disable tracking of hash changes (default: false)
+- `disabled` (optional): Disable page view tracking (default: false)
 
 ## TypeScript Support
 

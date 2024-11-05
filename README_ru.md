@@ -12,6 +12,8 @@ React-компонент и хук для интеграции Яндекс.Ме
 
 ```bash
 npm install @koiztech/next-yandex-metrika
+# или
+pnpm add @koiztech/next-yandex-metrika
 ```
 
 Добавьте ID счётчика Яндекс.Метрики в переменные окружения:
@@ -44,11 +46,11 @@ export default function RootLayout({ children }) {
 
 Компонент YandexMetrika принимает следующие пропсы:
 
-- clickmap (опционально): Включить сбор карты кликов (по умолчанию: true)
-- trackLinks (опционально): Включить отслеживание внешних ссылок (по умолчанию: true)
-- accurateTrackBounce (опционально): Включить точный расчет отказов (по умолчанию: true)
-- webvisor (опционально): Включить вебвизор (по умолчанию: false)
-- strategy (опционально): Стратегия загрузки скрипта ('lazyOnload' | 'afterInteractive' | 'beforeInteractive', по умолчанию: 'afterInteractive'). [Подробнее](https://nextjs.org/docs/app/api-reference/components/script#strategy).
+- `clickmap` (опционально): Включить сбор карты кликов (по умолчанию: true)
+- `trackLinks` (опционально): Включить отслеживание внешних ссылок (по умолчанию: true)
+- `accurateTrackBounce` (опционально): Включить точный расчет отказов (по умолчанию: true)
+- `webvisor` (опционально): Включить вебвизор (по умолчанию: false)
+- `strategy` (опционально): Стратегия загрузки скрипта ('lazyOnload' | 'afterInteractive' | 'beforeInteractive', по умолчанию: 'afterInteractive'). [Подробнее](https://nextjs.org/docs/app/api-reference/components/script#strategy).
 
 Например:
 
@@ -118,8 +120,8 @@ export default function App() {
 
 Хук usePageViews принимает объект опций со следующими свойствами:
 
-- ignoreHashChange (опционально): Отключить отслеживание изменений хэша (по умолчанию: false)
-- disabled (опционально): Отключить отслеживание просмотров страниц (по умолчанию: false)
+- `ignoreHashChange` (опционально): Отключить отслеживание изменений хэша (по умолчанию: false)
+- `disabled` (опционально): Отключить отслеживание просмотров страниц (по умолчанию: false)
 
 ## Поддержка TypeScript
 
