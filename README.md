@@ -1,5 +1,7 @@
 # @koiztech/next-yandex-metrika
 
+> IMPORTANT: This package is a Work in Progress. It has not been published to NPM yet.
+
 A Next.js component and hook for integrating Yandex Metrika analytics into your Next.js application (version 14 and above).
 
 ## Installation
