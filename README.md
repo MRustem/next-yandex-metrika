@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# @koiztech/next-yandex-metrika
 
-## Getting Started
+A Next.js component and hook for integrating Yandex Metrika analytics into your Next.js application (version 14 and above).
 
-First, run the development server:
+## Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install @koiztech/next-yandex-metrika
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1. Add the Yandex Metrika component
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+First, add the YandexMetrika component to your app layout or page:
 
-## Learn More
+```jsx
+// app/layout.tsx
+import { YandexMetrika } from '@koiztech/next-yandex-metrika'
 
-To learn more about Next.js, take a look at the following resources:
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        {children}
+        <YandexMetrika yid={YOUR_YANDEX_ID} />
+      </body>
+    </html>
+  )
+}
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The YandexMetrika component accepts the following props:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- yid (required): Your Yandex Metrika counter ID
+- clickmap (optional): Enable click map collection (default: true)
+- trackLinks (optional): Enable external link tracking (default: true)
+- accurateTrackBounce (optional): Enable accurate bounce rate tracking (default: true)
+- webvisor (optional): Enable session recording (default: false)
+- strategy (optional): Script loading strategy ('lazyOnload' | 'afterInteractive' | 'beforeInteractive', default: 'afterInteractive')
 
-## Deploy on Vercel
+### 2. Track Page Views
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+For automatic page view tracking in your Next.js application, use the usePageViews hook (recommended):
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```jsx
+// e.g. app/page.tsx
+'use client'
+import { usePageViews } from '@koiztech/next-yandex-metrika'
+
+export default function App() {
+  usePageViews()
+  return <div>Your app content</div>
+}
+```
+
+> Note: Use only on client components.
+
+The usePageViews hook accepts an options object with the following properties:
+
+- yandexId (optional): Your Yandex Metrika counter ID (falls back to NEXT_PUBLIC_YANDEX_ID environment variable)
+- ignoreHashChange (optional): Disable tracking of hash changes (default: false)
+- disabled (optional): Disable page view tracking (default: false)
+
+## Environment Variables
+
+You can set your Yandex Metrika ID using an environment variable:
+
+```bash
+# .env
+NEXT_PUBLIC_YANDEX_ID=your_counter_id
+```
+
+## TypeScript Support
+
+This package includes TypeScript definitions out of the box.
