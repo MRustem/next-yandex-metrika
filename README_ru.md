@@ -83,8 +83,6 @@ export default function LayoutClient({ children }: { children: React.ReactNode }
 // app/layout.tsx
 import LayoutClient from '@/components/LayoutClient'
 
-const yid = process.env.NEXT_PUBLIC_YANDEX_ID
-
 export default function RootLayout({
   children,
 }: Readonly<{
