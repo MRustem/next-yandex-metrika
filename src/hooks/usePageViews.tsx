@@ -15,7 +15,6 @@ type HitOptions = {
 }
 
 interface UsePageViewsOptions {
-  yandexId?: number
   ignoreHashChange?: boolean
   disabled?: boolean
 }
@@ -23,12 +22,11 @@ interface UsePageViewsOptions {
 const trackPageView = (url: string, options?: HitOptions) => {
   if (typeof window !== 'undefined' && 'ym' in window) {
     const ym = window.ym as unknown as (yid: number, method: string, url: string, options?: HitOptions) => void
+    const yid = Number(process.env.NEXT_PUBLIC_YANDEX_ID)
 
-    if (!ym) {
+    if (!ym || !yid) {
       return
     }
-
-    const yid = Number(process.env.NEXT_PUBLIC_YANDEX_ID)
 
     https://yandex.ru/support/metrica/code/counter-spa-setup.html
     ym(yid, 'hit', url, {
@@ -70,8 +68,3 @@ export function usePageViews({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Router.events, ignoreHashChange, disabled])
 }
-
-// export function YandexMetrikaEvents() {
-//   usePageViews()
-//   return null
-// }

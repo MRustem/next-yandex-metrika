@@ -1,6 +1,6 @@
 # @koiztech/next-yandex-metrika
 
-> IMPORTANT: This package is a Work in Progress. It has not been published to NPM yet.
+> IMPORTANT: This package is a Work in Progress.
 
 A Next.js component and hook for integrating Yandex Metrika analytics into your Next.js application (version 14 and above).
 
@@ -99,7 +99,7 @@ export default function RootLayout({
 }
 ```
 
-...or you can use the hook in specific pages:
+...or you can use the hook on specific pages:
 
 ```jsx
 // e.g. app/page.tsx
