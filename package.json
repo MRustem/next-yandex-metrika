@@ -1,6 +1,6 @@
 {
   "name": "@koiztech/next-yandex-metrika",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Yandex Metrika for Next.js >= 14",
   "keywords": ["next.js", "yandex", "metrika", "analytics"],
   "author": "Oleg Korol <oleg@olegkorol.de>",

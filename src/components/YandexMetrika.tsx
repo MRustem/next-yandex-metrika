@@ -58,13 +58,22 @@ export function YandexMetrika({
   trackLinks = true,
   accurateTrackBounce = true,
   webvisor = false,
+  strategy = 'afterInteractive'
 }: {
-  yid: number,
+  yid?: number,
   clickmap?: boolean,
   trackLinks?: boolean,
   accurateTrackBounce?: boolean,
   webvisor?: boolean,
+  strategy?: 'lazyOnload' | 'afterInteractive' | 'beforeInteractive'
 }) {
+  yid = yid ?? Number(process.env.NEXT_PUBLIC_YANDEX_ID)
+
+  if (!yid) {
+    console.warn('Yandex Metrika ID is not set')
+    return null
+  }
+
   return (
     <>
       <YandexMetrikaTag
@@ -73,6 +82,7 @@ export function YandexMetrika({
         trackLinks={trackLinks}
         accurateTrackBounce={accurateTrackBounce}
         webvisor={webvisor}
+        strategy={strategy}
       />
       <YandexMetrikaPixel yid={yid} />
     </>

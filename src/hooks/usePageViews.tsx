@@ -28,7 +28,7 @@ const trackPageView = (url: string, options?: HitOptions) => {
       return
     }
 
-    const yid = Number(process.env.NEXT_PUBLIC_YANDEX_ID) ?? 98796529
+    const yid = Number(process.env.NEXT_PUBLIC_YANDEX_ID)
 
     https://yandex.ru/support/metrica/code/counter-spa-setup.html
     ym(yid, 'hit', url, {
@@ -39,7 +39,6 @@ const trackPageView = (url: string, options?: HitOptions) => {
 }
 
 export function usePageViews({
-  yandexId,
   ignoreHashChange,
   disabled
 }: UsePageViewsOptions = {}) {
@@ -69,7 +68,7 @@ export function usePageViews({
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [Router.events, yandexId, ignoreHashChange, disabled])
+  }, [Router.events, ignoreHashChange, disabled])
 }
 
 // export function YandexMetrikaEvents() {
