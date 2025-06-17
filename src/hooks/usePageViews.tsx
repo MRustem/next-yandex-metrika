@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { Router } from "next/router";
+import { usePathname, useSearchParams } from 'next/navigation'
 
 type HitOptions = {
   callback?: () => void
@@ -19,17 +19,22 @@ interface UsePageViewsOptions {
   disabled?: boolean
 }
 
+declare global {
+  interface Window {
+    ym?: (yid: number, method: string, url: string, options?: HitOptions) => void
+  }
+}
+
 const trackPageView = (url: string, options?: HitOptions) => {
-  if (typeof window !== 'undefined' && 'ym' in window) {
-    const ym = window.ym as unknown as (yid: number, method: string, url: string, options?: HitOptions) => void
+  if (typeof window !== 'undefined' && window.ym) {
     const yid = Number(process.env.NEXT_PUBLIC_YANDEX_ID)
 
-    if (!ym || !yid) {
+    if (!window.ym || !yid) {
       return
     }
 
-    https://yandex.ru/support/metrica/code/counter-spa-setup.html
-    ym(yid, 'hit', url, {
+    // https://yandex.ru/support/metrica/code/counter-spa-setup.html
+    window.ym(yid, 'hit', url, {
       ...options,
       title: options?.title || document.title
     })
@@ -37,34 +42,39 @@ const trackPageView = (url: string, options?: HitOptions) => {
 }
 
 export function usePageViews({
-  ignoreHashChange,
-  disabled
+  ignoreHashChange = false,
+  disabled = false
 }: UsePageViewsOptions = {}) {
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
 
   useEffect(() => {
     if (disabled) {
       return
     }
 
-    const handleRouteChange = (url: string) => {
-      trackPageView(url)
+    // Для App Router используем pathname и searchParams
+    const url = searchParams.toString()
+      ? `${pathname}?${searchParams.toString()}`
+      : pathname
+
+    trackPageView(url)
+  }, [pathname, searchParams, disabled])
+
+  useEffect(() => {
+    if (disabled || ignoreHashChange) {
+      return
+    }
+
+    const handleHashChange = () => {
+      if (typeof window !== 'undefined') {
+        trackPageView(window.location.pathname + window.location.search + window.location.hash)
+      }
     }
 
     if (typeof window !== 'undefined') {
-      Router.events.on('routeChangeComplete', handleRouteChange)
-
-      if (!ignoreHashChange) {
-        Router.events.on('hashChangeComplete', handleRouteChange) 
-      }
-
-      return () => {
-        Router.events.off('routeChangeComplete', handleRouteChange)
-        
-        if (!ignoreHashChange) {
-          Router.events.off('hashChangeComplete', handleRouteChange)
-        }
-      }
+      window.addEventListener('hashchange', handleHashChange)
+      return () => window.removeEventListener('hashchange', handleHashChange)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [Router.events, ignoreHashChange, disabled])
+  }, [disabled, ignoreHashChange])
 }

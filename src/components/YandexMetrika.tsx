@@ -38,7 +38,6 @@ function YandexMetrikaTag({
 function YandexMetrikaPixel({ yid }: { yid: number }) {
   const src = `https://mc.yandex.ru/watch/${yid}`;
 
-  /* eslint-disable @next/next/no-img-element */
   return (
     <noscript id="yandex-metrika-pixel">
       <div>
@@ -70,7 +69,10 @@ export function YandexMetrika({
   yid = yid ?? Number(process.env.NEXT_PUBLIC_YANDEX_ID)
 
   if (!yid) {
-    console.warn('Yandex Metrika ID is not set')
+    if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line no-console
+      console.warn('Yandex Metrika ID is not set')
+    }
     return null
   }
 
