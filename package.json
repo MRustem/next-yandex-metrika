@@ -1,6 +1,6 @@
 {
-  "name": "@koiztech/next-yandex-metrika",
-  "version": "0.0.8",
+  "name": "mrr_97/next-yandex-metrika",
+  "version": "1.0.0",
   "type": "module",
   "description": "Yandex Metrika for Next.js >= 14",
   "keywords": [
@@ -9,7 +9,7 @@
     "metrika",
     "analytics"
   ],
-  "author": "Oleg Korol <oleg@olegkorol.de>",
+  "author": "mrr_97",
   "license": "MIT",
   "private": false,
   "main": "./dist/index.js",
