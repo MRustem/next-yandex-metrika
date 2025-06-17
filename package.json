@@ -1,5 +1,5 @@
 {
-  "name": "mrr_97/next-yandex-metrika",
+  "name": "@mrr_97/next-yandex-metrika",
   "version": "1.0.0",
   "type": "module",
   "description": "Yandex Metrika for Next.js >= 14",
